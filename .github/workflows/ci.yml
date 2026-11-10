@@ -1,0 +1,64 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python: ["3.10", "3.11", "3.12", "3.13"]
+        include:
+          - os: ubuntu-22.04
+            python: "3.9"
+          - os: macos-latest
+            python: "3.13"
+          - os: windows-latest
+            python: "3.13"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install . pytest
+      - run: python -m pytest -q -rs
+
+  demo-home:
+    name: scan, fix and drift on a demo home
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: python -m pip install .
+      - run: python examples/make_demo_home.py /tmp/demo-home
+      - name: scan finds warnings
+        run: |
+          optout --home /tmp/demo-home --color always scan
+          set +e; optout --home /tmp/demo-home scan --fail-on warn >/dev/null; rc=$?; set -e
+          test "$rc" -eq 1
+      - name: fix --write clears every local warning
+        run: |
+          optout --home /tmp/demo-home baseline
+          optout --home /tmp/demo-home --color always fix --write
+          optout --home /tmp/demo-home scan --format json | python -c 'import json,sys; d=json.load(sys.stdin)["findings"]; bad=[f["id"] for f in d if f["status"]=="warn" and not f["id"].startswith("gemini.t") and f["id"]!="gemini.auth"]; print("remaining warn:", bad); assert not bad'
+      - name: drift catches a Cursor privacy downgrade
+        run: |
+          python -c 'import sys; sys.path.insert(0,"examples"); import make_demo_home as m; m.cursor_db("/tmp/demo-home","PRIVACY_MODE_NO_TRAINING")'
+          set +e; optout --home /tmp/demo-home --color always drift; rc=$?; set -e
+          test "$rc" -eq 3
+
+  install-script:
+    name: one-line install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: OPTOUT_REF=${{ github.sha }} sh install.sh
+      - run: |
+          export PATH="$HOME/.local/bin:${PIPX_BIN_DIR:-/opt/pipx_bin}:$PATH"
+          optout --version
+          optout scan --fail-on never
+          optout accounts

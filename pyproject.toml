@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "optout"
+version = "0.1.0"
+description = "Keep AI training, telemetry and retention opt-outs actually off across Claude Code, Codex, Gemini CLI, Cursor, Copilot, VS Code and Aider: scan, fix, attest account toggles, detect drift, watch vendor terms."
+readme = "README.md"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{name = "Mohammad Hamarsheh"}]
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["privacy", "ai", "training-data", "opt-out", "telemetry", "claude-code", "codex", "cursor", "copilot", "gemini-cli", "compliance"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+  "Topic :: System :: Systems Administration",
+]
+
+[project.urls]
+Homepage = "https://github.com/hamarshehmhmd/optout"
+Issues = "https://github.com/hamarshehmhmd/optout/issues"
+
+[project.scripts]
+optout = "optout.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
