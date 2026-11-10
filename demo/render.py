@@ -46,26 +46,22 @@ SCENES = [
             "Each CLI and editor adds its own telemetry and upload settings",
             "Nobody knows which of them are still off today",
         ],
-        "say": "A company whose developers had all turned off data sharing found it switched back on in Codex. "
-               "GitHub began training on Copilot Free and Pro data by default in April. Mistral Pro is opted in by default, "
-               "and installing Cursor's phone app changed people's privacy mode. On top of the account toggles, every C L I "
-               "and editor has its own telemetry, feedback upload and transcript settings. So on any given day, nobody can say "
-               "which of them are still off.",
+        "say": ("Developers who had turned off data sharing found it back on in Codex. GitHub began training on Copilot "
+               "Free and Pro data by default in April. And every C L I and editor adds its own telemetry and upload settings. "
+               "Nobody can say which of them are still off today."),
     },
     {
         "kind": "term",
         "cmds": ["optout --color always scan --only claude"],
-        "say": "Here is a demo home folder with typical configs. opt out scan reads every setting locally, and nothing is sent "
-               "anywhere. For Claude Code it finds usage metrics, feedback uploads and the transcript sharing survey still on, "
-               "and ninety days of local transcripts. It's signed in to a claude dot A I account, where training is an account "
-               "toggle no local file can show, so it's marked to do.",
+        "say": ("Here is a demo home folder with typical configs. opt out scan reads every setting locally and sends nothing. "
+               "Claude Code still has usage metrics, feedback uploads and the transcript sharing survey on. Its account training "
+               "toggle can't be read from any local file, so it's marked to do."),
     },
     {
         "kind": "term",
         "cmds": ["optout --color always scan --only codex,gemini"],
-        "say": "Codex has analytics and feedback uploads on, and it's signed in with Chat G P T, so the Chat G P T data control "
-               "decides training. Gemini C L I has usage statistics on, telemetry that includes prompt text, and a Gemini A P I "
-               "key, which on the unpaid tier lets Google use your prompts.",
+        "say": ("Codex has analytics and feedback uploads on, and uses a Chat G P T login. Gemini C L I has usage statistics "
+               "on, prompt text in telemetry, and an A P I key that, on the unpaid tier, lets Google use your prompts."),
     },
     {
         "kind": "term",
@@ -102,9 +98,8 @@ SCENES = [
         "cmds": ["optout --color always terms --only anthropic,github,cursor",
                  "optout terms --pages acme.json >/dev/null; sed -i 's/do not use/may use/' acme-privacy.html",
                  "optout --color always terms --pages acme.json --diff"],
-        "say": "Vendors also change the rules themselves. opt out terms takes a snapshot of each vendor's privacy and terms "
-               "pages, live here, and on the next run it shows exactly what changed. This example vendor quietly changed "
-               "do not use to may use.",
+        "say": ("Vendors change the rules too. opt out terms snapshots each vendor's privacy and terms pages, live here, "
+               "and on the next run shows exactly what changed. This example vendor quietly changed do not use to may use."),
     },
     {
         "kind": "bullets",
@@ -115,9 +110,8 @@ SCENES = [
             "Vendors rename settings; each rule cites the doc it's based on",
             "Some sites block scripts (openai.com returns 403)",
         ],
-        "say": "The limits. It can't read server side toggles, it only records your checks. Cursor's cached mode is only as "
-               "fresh as Cursor's last sync. Vendors rename settings, so each rule cites its source. And some sites, like "
-               "open A I dot com, block scripted fetches.",
+        "say": ("The limits. It can't read server side toggles, it records your checks. Cursor's cached mode is only as "
+               "fresh as its last sync. Settings get renamed, so each rule cites its source. And some sites block scripts."),
     },
     {
         "kind": "bullets",
@@ -129,9 +123,8 @@ SCENES = [
             "github.com/hamarshehmhmd/optout",
             "GNU AGPL-3.0-or-later (commercial licenses available)",
         ],
-        "say": "Install it with the one line installer and run opt out. It has no dependencies, and it's licensed under the "
-               "GNU Affero General Public License version 3 or later, with commercial licenses available from the author. "
-               "It's on GitHub at hamarsheh m h m d slash opt out.",
+        "say": ("Install it with the one line installer and run opt out. It's licensed under the GNU Affero General Public "
+               "License version 3 or later, with commercial licenses available from the author."),
     },
 ]
 

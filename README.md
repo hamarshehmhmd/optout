@@ -71,7 +71,7 @@ State (attestations, baseline, page snapshots) lives in `~/.local/state/optout` 
 
 ## Demo
 
-[`demo.mp4`](https://github.com/hamarshehmhmd/optout/releases/download/v0.1.0/demo.mp4) (narrated, about 2.5 minutes) runs every command against a fake home directory built by [`examples/make_demo_home.py`](examples/make_demo_home.py):
+[`demo.mp4`](https://github.com/hamarshehmhmd/optout/releases/download/v0.1.0/demo.mp4) (narrated, 2 min 49 s) runs every command against a fake home directory built by [`examples/make_demo_home.py`](examples/make_demo_home.py):
 
 ```sh
 python examples/make_demo_home.py /tmp/demo-home
