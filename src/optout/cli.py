@@ -126,7 +126,7 @@ def cmd_accounts(a):
         st, det = accounts.status(v, a.max_age, data=data)
         worst = max(worst, {"ok": 0, "unverified": 1, "stale": 1, "bad": 3}[st])
         label = {"ok": "OK  ", "unverified": "TODO", "stale": "OLD ", "bad": "BAD "}[st]
-        print(f"{col(C[st], label)}  {bold(v):<10} {info['product']}")
+        print(f"{col(C[st], label)}  {bold(v.ljust(10))} {info['product']}")
         print(f"        {info['setting']} -> {info['off_means']}")
         print(col("2", f"        {det} | {info['url']}"))
     print(col("2", "\nThese live on vendor servers; optout can't read them. Check, then record: optout attest <vendor> off"))
