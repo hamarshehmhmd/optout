@@ -14,6 +14,10 @@ def _isolate(monkeypatch, tmp_path):
         if k.startswith(("DISABLE_", "CLAUDE_", "DO_NOT_TRACK", "OTEL_", "GEMINI_", "CODEX_HOME", "ANTHROPIC_", "OPTOUT_")):
             monkeypatch.delenv(k, raising=False)
     monkeypatch.setenv("NO_COLOR", "1")
+    # demo homes use the Linux layout (~/.config/Code/...) on every OS
+    from optout import checks, util
+    monkeypatch.setattr(checks, "platform_name", lambda: "linux")
+    monkeypatch.setattr(util, "platform_name", lambda: "linux")
 
 
 @pytest.fixture

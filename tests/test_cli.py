@@ -3,16 +3,7 @@ import os
 import subprocess
 import sys
 
-import pytest
-
-from optout import checks, cli, util
-
-
-@pytest.fixture(autouse=True)
-def _linux_layout(monkeypatch):
-    # demo homes use the Linux layout (~/.config/Code/...) on every OS
-    monkeypatch.setattr(checks, "platform_name", lambda: "linux")
-    monkeypatch.setattr(util, "platform_name", lambda: "linux")
+from optout import cli
 
 
 def run(capsys, *args):

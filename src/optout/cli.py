@@ -183,7 +183,7 @@ def cmd_drift(a):
         name = (f or b)["tool"] + ": " + (f or b)["title"]
         before = f"{b['status']} '{b['value']}'" if b else "(not present)"
         after = f"{f['status']} '{f['value']}'" if f else "(gone)"
-        print(f"  {col(C[kind], kind.upper()):<8} {name}\n        {before}  ->  {after}")
+        print(f"  {col(C[kind], kind.upper().ljust(7))} {name}\n        {before}  ->  {after}")
     if weaker:
         print(col("31", f"\n{len(weaker)} setting(s) got weaker since the baseline."))
     return 3 if weaker else 0
@@ -199,7 +199,8 @@ def cmd_terms(a):
         print(json.dumps([{k: v for k, v in r.items() if k != "diff"} for r in res], indent=2))
     else:
         for r in res:
-            print(f"  {col(C[r['status']], r['status'].upper()):<8} {r['id']:<28} {r['detail']}")
+            label = r["status"].upper().ljust(7)
+            print(f"  {col(C[r['status']], label)} {r['id']:<28} {r['detail']}")
             if r["status"] == "changed" and a.diff:
                 for ln in r["diff"][2:40]:
                     c = "32" if ln.startswith("+") else "31" if ln.startswith("-") else "2"
@@ -212,7 +213,7 @@ def cmd_terms(a):
 def build_parser():
     ap = argparse.ArgumentParser(prog="optout", description="Keep AI training, telemetry and retention opt-outs actually off.")
     ap.add_argument("--version", action="version", version=f"optout {__version__}")
-    ap.add_argument("--home", help="home directory to inspect (default: yours)")
+    ap.add_argument("--home", default=os.environ.get("OPTOUT_HOME"), help="home directory to inspect (default: $OPTOUT_HOME or yours)")
     ap.add_argument("--color", choices=["auto", "always", "never"], default="auto")
     ap.add_argument("--max-age", type=int, default=14, help="days before an account check counts as stale (default 14)")
     sub = ap.add_subparsers(dest="cmd")
